@@ -43,6 +43,7 @@ def not_found(error):
     return render_template('common/error.html', code=404, message='الصفحة المطلوبة غير موجودة'), 404
 
 def initialize_database():
+    # 🌟 الاستدعاء الداخلي لمنع الـ Circular Import تماماً
     from models.appointment import Appointment
     from models.medical_record import MedicalRecord
     from models.patient import Patient
@@ -50,10 +51,15 @@ def initialize_database():
     from models.sponsor import Sponsor
     from models.user import User
 
+    # إنشاء الجداول
     db.create_all()
     ensure_database_columns()
-    for patient in Patient.query.filter(Patient.reference_number.is_(None)).all():
+    
+    # 🌟 استخدام db.session الفعال بدلاً من الاستعلام المباشر لضمان الـ Binding الصحيح محلياً وعبر السيرفر
+    patients_without_ref = db.session.query(Patient).filter(Patient.reference_number.is_(None)).all()
+    for patient in patients_without_ref:
         patient.ensure_reference_number()
+        
     db.session.commit()
     User.seed_defaults()
 
@@ -65,11 +71,11 @@ def ensure_database_columns():
             connection.exec_driver_sql('ALTER TABLE patients ADD COLUMN reference_number VARCHAR(30)')
 
 
-# 🌟 التغيير هنا: استدعاء الـ Controllers أولاً
+# 3. استدعاء الـ Controllers لتسجيل الـ Routes والـ APIs
 from controllers import admin_controller, auth_controller, doctor_controller, reception_controller, tv_controller
 
 
-# 🌟 ثم تشغيل قاعدة البيانات في نهاية الملف تماماً لتجنب التداخل الدائري
+# 4. تشغيل تهيئة قاعدة البيانات وضمان الـ App Context كاملاً بنسبة 100%
 with app.app_context():
     initialize_database()
 
