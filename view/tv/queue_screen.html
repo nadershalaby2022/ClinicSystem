@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شاشة الانتظار الرقمية</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tv.css') }}">
+</head>
+<body>
+    <div class="tv-container">
+        <div class="ads-section">
+            <div class="visual-board">
+                <div class="orbital-card">
+                    <span>ClinicSystem</span>
+                    <strong>مرحباً بكم في عيادتنا</strong>
+                    <small>نتمنى لكم دوام الصحة والعافية</small>
+                </div>
+                <div class="ad-ribbon">تنظيم الدور يتم آلياً من مكتب الاستقبال</div>
+            </div>
+        </div>
+
+        <div class="queue-section">
+            <div class="clinic-header">
+                <img src="{{ url_for('static', filename='images/clinic/logo.png') }}" alt="شعار العيادة" onerror="this.style.display='none'">
+                <h2>عيادة النخبة الطبية</h2>
+                <span id="tv-updated">--:--</span>
+            </div>
+
+            <div class="current-patient-box">
+                <span class="current-label">الدور الحالي</span>
+                <span class="current-number" id="live-number">-</span>
+                <span class="current-name" id="live-name">لا يوجد حالياً</span>
+            </div>
+
+            <div class="next-patients-list">
+                <div class="next-title">الحالات التالية</div>
+                <div id="next-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/queue.js') }}"></script>
+</body>
+</html>

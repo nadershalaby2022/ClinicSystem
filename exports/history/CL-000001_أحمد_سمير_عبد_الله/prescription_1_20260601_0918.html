@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>روشتة أحمد سمير عبد الله</title>
+    <style>
+        body { font-family: Tahoma, Arial, sans-serif; margin: 32px; color: #14213d; }
+        .rx { max-width: 850px; margin: auto; border: 1px solid #d9e2ec; padding: 28px; border-radius: 12px; }
+        .header { display: flex; justify-content: space-between; border-bottom: 2px solid #0ea5e9; padding-bottom: 16px; }
+        h1 { margin: 0; color: #0f766e; }
+        .meta, .section { margin-top: 18px; }
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .label { color: #64748b; font-size: 13px; }
+        .box { background: #f8fafc; padding: 14px; border-radius: 10px; min-height: 70px; white-space: pre-wrap; }
+        .footer { margin-top: 32px; display: flex; justify-content: space-between; color: #475569; }
+        @media print { body { margin: 0; } .rx { border: 0; } .no-print { display: none; } }
+    </style>
+</head>
+<body>
+    <button class="no-print" onclick="window.print()">طباعة</button>
+    <article class="rx">
+        <div class="header">
+            <div>
+                <h1>روشتة طبية</h1>
+                <p>ClinicSystem - نظام إدارة العيادة</p>
+            </div>
+            <div>
+                <strong>طبيب العيادة</strong><br>
+                <span>2026-06-01 09:18</span>
+            </div>
+        </div>
+        <section class="meta grid">
+            <div><span class="label">الرقم المرجعي</span><br><strong>CL-000001</strong></div>
+            <div><span class="label">اسم المريض</span><br><strong>أحمد سمير عبد الله</strong></div>
+            <div><span class="label">الهاتف</span><br><strong>01010000001</strong></div>
+            <div><span class="label">العمر</span><br><strong>34</strong></div>
+            <div><span class="label">النوع</span><br><strong>ذكر</strong></div>
+        </section>
+        <section class="section">
+            <div class="label">الأعراض</div>
+            <div class="box">صداع وإرهاق بسيط مع مراجعة العلامات الحيوية.</div>
+        </section>
+        <section class="section">
+            <div class="label">التشخيص</div>
+            <div class="box">كشف تجريبي مكتمل اليوم</div>
+        </section>
+        <section class="section">
+            <div class="label">الروشتة والعلاج</div>
+            <div class="box">دواء تجريبي 1: قرص بعد الأكل مرتين يومياً
+دواء تجريبي 2: عند اللزوم
+مراجعة بعد أسبوع عند الحاجة.</div>
+        </section>
+        <section class="section">
+            <div class="label">ملاحظات الطبيب</div>
+            <div class="box">بيانات تجريبية لاختبار النظام والطباعة والهيستوري.</div>
+        </section>
+        <div class="footer">
+            <span>ملف رقم: 1</span>
+            <span>توقيع الطبيب: ....................</span>
+        </div>
+    </article>
+    <script>
+        if (new URLSearchParams(window.location.search).get('print') === '1') {
+            window.addEventListener('load', () => window.print());
+        }
+    </script>
+</body>
+</html>

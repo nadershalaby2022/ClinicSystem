@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - ClinicSystem</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="login-page">
+    <main class="login-shell">
+        <section class="login-brand">
+            <div class="brand-mark">CS</div>
+            <h1>ClinicSystem</h1>
+            <p>نظام إدارة عيادة محلي للاستقبال والطبيب وشاشة الانتظار</p>
+            <div class="login-stats">
+                <span>Offline</span>
+                <span>SQLite</span>
+                <span>Local Network</span>
+            </div>
+        </section>
+        <section class="login-card">
+            <h2>تسجيل الدخول</h2>
+            <form method="post">
+                <label>اسم المستخدم</label>
+                <input name="username" autocomplete="username" required>
+                <label>كلمة المرور</label>
+                <input name="password" type="password" autocomplete="current-password" required>
+                {% if error %}
+                <div class="alert error">{{ error }}</div>
+                {% endif %}
+                <button class="btn primary" type="submit">دخول</button>
+            </form>
+            <div class="demo-users">
+                <span>admin / admin123</span>
+                <span>doctor / doctor123</span>
+                <span>reception / reception123</span>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

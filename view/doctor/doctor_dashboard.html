@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة الطبيب - ClinicSystem</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/doctor.css') }}">
+</head>
+<body>
+    <header class="topbar doctor-topbar">
+        <div class="brand"><span class="brand-dot doctor-dot"></span>لوحة الطبيب</div>
+        <nav>
+            <a href="/dashboard">الرئيسية</a>
+            <a href="/doctor/patients">بحث المرضى</a>
+            {% if current_user.role == 'admin' %}<a href="/admin/users">المستخدمون</a>{% endif %}
+            <a href="/logout">خروج</a>
+        </nav>
+    </header>
+
+    <main class="doctor-layout">
+        <aside class="doctor-side">
+            <div class="side-card current-doctor-card">
+                <span class="eyebrow">Current Patient</span>
+                <strong id="doctor-current-ticket">-</strong>
+                <h2 id="doctor-current-name">لا يوجد حالياً</h2>
+                <a class="btn primary" id="open-current-patient" href="#">فتح ملف المريض</a>
+            </div>
+            <div class="side-card">
+                <div class="panel-title compact">
+                    <h3>المنتظرون</h3>
+                    <span id="doctor-updated">--:--</span>
+                </div>
+                <div id="doctor-waiting-list" class="mini-list"></div>
+            </div>
+        </aside>
+
+        <section class="doctor-main panel">
+            <div class="panel-title">
+                <div>
+                    <span class="eyebrow">Clinic Room</span>
+                    <h1>حجوزات وملفات اليوم</h1>
+                </div>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>الدور</th>
+                            <th>المرجعي</th>
+                            <th>المريض</th>
+                            <th>الهاتف</th>
+                            <th>نوع الحجز</th>
+                            <th>الحالة</th>
+                            <th>ملف</th>
+                        </tr>
+                    </thead>
+                    <tbody id="doctor-appointments-table"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/doctor.js') }}"></script>
+</body>
+</html>

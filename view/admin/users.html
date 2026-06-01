@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة المستخدمين - ClinicSystem</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="topbar admin-topbar">
+        <div class="brand"><span class="brand-dot admin-dot"></span>إدارة المستخدمين</div>
+        <nav>
+            <a href="/dashboard">الرئيسية</a>
+            <a href="/reception">الاستقبال</a>
+            <a href="/doctor">الطبيب</a>
+            <a href="/admin/export/patients.xlsx">تصدير Excel</a>
+            <a href="/logout">خروج</a>
+        </nav>
+    </header>
+
+    <main class="workspace admin-workspace">
+        <section class="panel booking-panel">
+            <div class="panel-title">
+                <div>
+                    <span class="eyebrow">Admin</span>
+                    <h1>مستخدم جديد</h1>
+                </div>
+                <button class="btn ghost" id="reset-user">إضافة جديدة</button>
+            </div>
+            <form id="user-form" class="form-grid">
+                <input type="hidden" id="user-id">
+                <label>اسم المستخدم
+                    <input id="admin-username" required>
+                </label>
+                <label>الاسم الكامل
+                    <input id="admin-full-name" required>
+                </label>
+                <label>الدور
+                    <select id="admin-role" required>
+                        <option value="reception">استقبال</option>
+                        <option value="doctor">طبيب</option>
+                        <option value="admin">مدير النظام</option>
+                    </select>
+                </label>
+                <label>كلمة المرور
+                    <input id="admin-password">
+                </label>
+                <label class="switch-line span-2">
+                    <input id="admin-active" type="checkbox" checked>
+                    <span>الحساب مفعل</span>
+                </label>
+                <button class="btn primary span-2" type="submit">حفظ المستخدم</button>
+            </form>
+        </section>
+
+        <section class="panel queue-panel">
+            <div class="panel-title">
+                <div>
+                    <span class="eyebrow">Users</span>
+                    <h1>المستخدمون والصلاحيات</h1>
+                </div>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>المستخدم</th>
+                            <th>الاسم</th>
+                            <th>الدور</th>
+                            <th>كلمة المرور</th>
+                            <th>الحالة</th>
+                            <th>إدارة</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-users-table"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ملف {{ patient.name }} - ClinicSystem</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/doctor.css') }}">
+</head>
+<body>
+    <header class="topbar doctor-topbar">
+        <div class="brand"><span class="brand-dot doctor-dot"></span>ملف المريض</div>
+        <nav>
+            <a href="/doctor">لوحة الطبيب</a>
+            <a href="/doctor/patients">بحث المرضى</a>
+            <a href="/logout">خروج</a>
+        </nav>
+    </header>
+
+    <main class="patient-page">
+        <section class="patient-header panel">
+            <div>
+                <span class="eyebrow">Patient Profile</span>
+                <h1>{{ patient.name }}</h1>
+                <div class="patient-meta">
+                    <span>الرقم المرجعي: {{ patient.reference_number }}</span>
+                    <span>هاتف: {{ patient.phone }}</span>
+                    <span>عمر: {{ patient.age or '-' }}</span>
+                    <span>نوع: {{ patient.gender or '-' }}</span>
+                    <span>العنوان: {{ patient.address or '-' }}</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="profile-grid">
+            <form id="medical-record-form" class="panel medical-form" data-patient-id="{{ patient.id }}">
+                <div class="panel-title">
+                    <div>
+                        <span class="eyebrow">New Visit</span>
+                        <h2>روشتة وتشخيص</h2>
+                    </div>
+                </div>
+                <label>الأعراض
+                    <textarea id="record-symptoms" rows="4"></textarea>
+                </label>
+                <label>التشخيص
+                    <textarea id="record-diagnosis" rows="4"></textarea>
+                </label>
+                <label>العلاج والروشتة
+                    <textarea id="record-prescription" rows="7"></textarea>
+                </label>
+                <label>ملاحظات إضافية
+                    <textarea id="record-notes" rows="3"></textarea>
+                </label>
+                <div class="action-row">
+                    <button class="btn primary" type="submit" data-print="0">حفظ</button>
+                    <button class="btn success" type="submit" data-print="1">حفظ وطباعة</button>
+                </div>
+            </form>
+
+            <aside class="panel history-panel">
+                <div class="panel-title">
+                    <div>
+                        <span class="eyebrow">History</span>
+                        <h2>التاريخ المرضي</h2>
+                    </div>
+                </div>
+                <div class="history-list">
+                    {% for record in records %}
+                    <article class="history-item">
+                        <strong>{{ record.created_at.strftime('%Y-%m-%d %H:%M') }}</strong>
+                        <span>{{ record.doctor.full_name if record.doctor else 'طبيب العيادة' }}</span>
+                        <p>{{ record.diagnosis or 'بدون تشخيص مكتوب' }}</p>
+                        <a href="/doctor/prescription/{{ record.id }}/print" target="_blank">عرض الروشتة</a>
+                    </article>
+                    {% else %}
+                    <div class="empty-state">لا يوجد تاريخ مرضي سابق</div>
+                    {% endfor %}
+                </div>
+            </aside>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/doctor.js') }}"></script>
+</body>
+</html>
