@@ -64,10 +64,15 @@ def ensure_database_columns():
         with db.engine.begin() as connection:
             connection.exec_driver_sql('ALTER TABLE patients ADD COLUMN reference_number VARCHAR(30)')
 
+
+# 🌟 التغيير هنا: استدعاء الـ Controllers أولاً
+from controllers import admin_controller, auth_controller, doctor_controller, reception_controller, tv_controller
+
+
+# 🌟 ثم تشغيل قاعدة البيانات في نهاية الملف تماماً لتجنب التداخل الدائري
 with app.app_context():
     initialize_database()
 
-from controllers import admin_controller, auth_controller, doctor_controller, reception_controller, tv_controller
 
 if __name__ == '__main__':
     print("\n" + "="*50)
